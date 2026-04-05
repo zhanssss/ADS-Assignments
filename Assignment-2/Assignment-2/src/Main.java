@@ -1,13 +1,15 @@
-import javax.rmi.ssl.SslRMIClientSocketFactory;
 import java.util.Scanner;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.util.Queue;
 
 public class Main {
     public static void main(String[] args) {
         LinkedList<BankAccount> accounts = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
         Stack<String> transactionHistory = new Stack<>();
+        Queue<Bill> billQueue = new LinkedList<>();
+        Queue<String> registrationQueue = new LinkedList<>();
 
         while (true) {
             System.out.println(
@@ -15,7 +17,8 @@ public class Main {
                             "2.Display All\n" +
                             "3.Search\n" +
                             "4.Account Operations\n " +
-                            "5.Exit"
+                            "5.Admin Panel\n" +
+                            "6.Exit"
             );
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -26,8 +29,10 @@ public class Main {
             } else if (choice == 3) {
                 searchAccount(accounts, scanner);
             } else if (choice == 4) {
-                accountOperations(accounts, scanner, transactionHistory);
+                accountOperations(accounts, scanner, transactionHistory, billQueue);
             } else if (choice == 5) {
+                adminPanel();
+            } else if (choice == 6) {
                 break;
             }
         }
@@ -78,10 +83,9 @@ public class Main {
         }
     }
 
-    public static void accountOperations(LinkedList<BankAccount> accounts, Scanner scanner, Stack transactionHistory) {
+    public static void accountOperations(LinkedList<BankAccount> accounts, Scanner scanner, Stack transactionHistory, Queue<Bill> billQueue) {
         System.out.println("Enter bank account username");
         String name = scanner.nextLine();
-
         BankAccount foundAcc = null;
         for (BankAccount acc : accounts) {
             if (acc.getUsername().equalsIgnoreCase(name)) {
@@ -89,20 +93,19 @@ public class Main {
                 break;
             }
         }
-
         if (foundAcc == null) {
             System.out.println("Account not found");
             return;
         }
-
         while (true) {
             System.out.println("Managing account: " + foundAcc.getUsername());
             System.out.println(
                     "1. Deposite\n " +
                             "2. Withdraw\n" +
                             "3. Transaction History\n " +
-                            "4. Undo Last Transaction\n " +
-                            "5. Exit"
+                            "4. Undo Last Transaction\n" +
+                            "5. Bills" +
+                            "6. Exit"
             );
             int choice = scanner.nextInt();
             scanner.nextLine();
@@ -138,29 +141,70 @@ public class Main {
                 if (transactionHistory.isEmpty()) {
                     System.out.println("Nothing to undo.");
                 } else {
-                    // Извлекаем последнюю запись из стека
                     String lastAction = (String) transactionHistory.pop();
-
-                    // Разбираем строку, чтобы понять действие и сумму
                     if (lastAction.startsWith("Deposited:")) {
-                        // Если был депозит — вычитаем деньги обратно
-                        // Извлекаем число между "Deposited: " и "to"
-                        double amount = Double.parseDouble(lastAction.substring(11, lastAction.indexOf("to")).trim());
+                        double amount = Double.parseDouble(lastAction.substring(11, lastAction.indexOf(" to ")).trim());
                         foundAcc.setBalance(foundAcc.getBalance() - amount);
-                        System.out.println("Undo successful. Deposit canceled. Current balance: " + foundAcc.getBalance());
+                        System.out.println("Deposit removed");
 
                     } else if (lastAction.startsWith("Withdraw:")) {
-                        // Если было снятие — возвращаем деньги на счет
                         double amount = Double.parseDouble(lastAction.substring(10, lastAction.indexOf("from")).trim());
                         foundAcc.setBalance(foundAcc.getBalance() + amount);
-                        System.out.println("Undo successful. Withdrawal canceled. Current balance: " + foundAcc.getBalance());
-                    } else if (choice == 5) {
-                        break;
+                        System.out.println("Withdraw removed");
+                    }
+                }
+            } else if (choice == 5) {
+                accountBillManagement(scanner, billQueue, name);
+            } else if (choice == 6) {
+                break;
+            }
+        }
+    }
+
+    public static void accountBillManagement(Scanner scanner, Queue<Bill> billQueue, String name) {
+        System.out.println("Choose bill action");
+        int choice = scanner.nextInt();
+
+        while (true) {
+            System.out.println(
+                    "1.Add bill payment request\n" +
+                            "2.My bills\n" +
+                            "3.Exit"
+            );
+
+            if(choice == 1){
+                System.out.println("Enter bill type:");
+                String type = scanner.nextLine();
+                System.out.println("Enter bill amount");
+                double amount = scanner.nextDouble();
+                Bill newBill = new Bill(type, amount, name);
+
+                billQueue.add(newBill);
+
+                System.out.println("Bill added");
+
+            } else if (choice == 2){
+                System.out.println("Your bills");
+                boolean hasBills = false;
+
+                for(Bill bill : billQueue){
+                    if(bill.getOwner().equalsIgnoreCase(name)){
+                        System.out.println(bill);
+                        hasBills = true;
                     }
                 }
 
-            }
+                if(!hasBills) System.out.println("No bills");
 
+            } else if (choice == 3){
+                break;
+            }
         }
+
+
+    }
+
+    public static void adminPanel() {
+
     }
 }
