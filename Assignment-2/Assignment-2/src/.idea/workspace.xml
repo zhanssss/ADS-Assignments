@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="590cd2c4-5e5e-4ffc-b276-d6932a247c17" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/../../Assignemtn 2 Report Bazarov Zhanserik.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../../Assignemtn 2 Report Bazarov Zhanserik.docx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/BankAccount.java" beforeDir="false" afterPath="$PROJECT_DIR$/BankAccount.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/Bill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

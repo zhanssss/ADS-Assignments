@@ -17,7 +17,6 @@ public class Main {
 
         BankAccount[] staticAccounts = new BankAccount[3];
 
-
         staticAccounts[0] = new BankAccount("1001", "Alice", 500.0);
         staticAccounts[1] = new BankAccount("1002", "Bob", 1200.0);
         staticAccounts[2] = new BankAccount("1003", "Charlie", 750.0);
@@ -160,7 +159,6 @@ public class Main {
 
     public static void adminPanel(Queue<String> regQueue, Queue<Bill> billQueue, LinkedList<BankAccount> accounts, Scanner scanner) {
         while (true) {
-            System.out.println("\n--- Admin Panel ---");
             System.out.println("1. Approve Registration (" + regQueue.size() + ")");
             System.out.println("2. Approve Bills (" + billQueue.size() + ")");
             System.out.println("3. Back");
