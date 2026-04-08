@@ -1,7 +1,9 @@
+// Main
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
+        mockAccounts();
         LinkedList<BankAccount> accounts = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
         Stack<String> transactionHistory = new Stack<>();
@@ -9,6 +11,20 @@ public class Main {
         Queue<String> registrationQueue = new LinkedList<>();
 
         userInterface(scanner, accounts, transactionHistory, billQueue, registrationQueue);
+    }
+
+    public static void mockAccounts() {
+
+        BankAccount[] staticAccounts = new BankAccount[3];
+
+
+        staticAccounts[0] = new BankAccount("1001", "Alice", 500.0);
+        staticAccounts[1] = new BankAccount("1002", "Bob", 1200.0);
+        staticAccounts[2] = new BankAccount("1003", "Charlie", 750.0);
+
+        for (BankAccount acc : staticAccounts) {
+            System.out.println(acc);
+        }
     }
 
     public static void userInterface(Scanner scanner, LinkedList<BankAccount> accounts, Stack<String> transactionHistory, Queue<Bill> billQueue, Queue<String> registrationQueue) {
