@@ -1,4 +1,3 @@
-// Bill.java
 enum BillStatus {
     PENDING,
     APPROVED,

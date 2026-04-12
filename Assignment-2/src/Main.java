@@ -1,14 +1,14 @@
-// Main
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         mockAccounts();
         LinkedList<BankAccount> accounts = new LinkedList<>();
         Scanner scanner = new Scanner(System.in);
-        Stack<String> transactionHistory = new Stack<>();
-        Queue<Bill> billQueue = new LinkedList<>();
-        Queue<String> registrationQueue = new LinkedList<>();
+        Stack transactionHistory = new Stack();
+        Queue<Bill> billQueue = new Queue<>();
+        Queue<String> registrationQueue = new Queue<>();
 
         userInterface(scanner, accounts, transactionHistory, billQueue, registrationQueue);
     }
@@ -26,7 +26,7 @@ public class Main {
         }
     }
 
-    public static void userInterface(Scanner scanner, LinkedList<BankAccount> accounts, Stack<String> transactionHistory, Queue<Bill> billQueue, Queue<String> registrationQueue) {
+    public static void userInterface(Scanner scanner, LinkedList<BankAccount> accounts, Stack transactionHistory, Queue<Bill> billQueue, Queue<String> registrationQueue) {
         while (true) {
             System.out.println("\n1. Enter Bank");
             System.out.println("2. Enter ATM");
@@ -51,7 +51,7 @@ public class Main {
         }
     }
 
-    public static void accountOperations(LinkedList<BankAccount> accounts, Scanner scanner, Stack<String> transactionHistory, Queue<Bill> billQueue) {
+    public static void accountOperations(LinkedList<BankAccount> accounts, Scanner scanner, Stack transactionHistory, Queue<Bill> billQueue) {
         System.out.println("Enter bank account username:");
         String name = scanner.nextLine();
         BankAccount foundAcc = null;
@@ -85,7 +85,7 @@ public class Main {
                 double amount = scanner.nextDouble();
                 scanner.nextLine();
                 foundAcc.setBalance(foundAcc.getBalance() + amount);
-                transactionHistory.push("Deposited: " + amount + " to " + foundAcc.getUsername());
+                transactionHistory.push(amount + " to " + foundAcc.getUsername());
                 System.out.println("Success. Balance: " + foundAcc.getBalance());
             } else if (choice == 2) {
                 System.out.print("Enter amount to withdraw: ");
@@ -146,7 +146,10 @@ public class Main {
                 billQueue.add(newBill);
                 System.out.println("Bill added to processing queue");
             } else if (choice == 2) {
-                for (Bill bill : billQueue) {
+                Queue<Bill> temp = billQueue;
+
+                while (!temp.isEmpty()) {
+                    Bill bill = temp.poll();
                     if (bill.getOwner().equalsIgnoreCase(name)) {
                         System.out.println(bill);
                     }

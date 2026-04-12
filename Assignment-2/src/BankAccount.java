@@ -1,4 +1,3 @@
-// BankAccount.java
 public class BankAccount {
     private String accountNumber;
     private String username;
