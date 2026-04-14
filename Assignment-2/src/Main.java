@@ -39,7 +39,7 @@ public class Main {
             if (choice == 1) {
                 System.out.println("Enter your name to apply for an account:");
                 String name = scanner.nextLine();
-                registrationQueue.add(name);
+                registrationQueue.enqueue(name);
                 System.out.println("Application sent! Wait for admin approval.");
             } else if (choice == 2) {
                 accountOperations(accounts, scanner, transactionHistory, billQueue);
@@ -130,8 +130,8 @@ public class Main {
         while (true) {
             System.out.println(
                     "1. Add bill payment request\n" +
-                    "2. My bills\n" +
-                    "3. Exit");
+                            "2. My bills\n" +
+                            "3. Exit");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -143,17 +143,10 @@ public class Main {
                 scanner.nextLine();
 
                 Bill newBill = new Bill(type, amount, name);
-                billQueue.add(newBill);
+                billQueue.enqueue(newBill);
                 System.out.println("Bill added to processing queue");
             } else if (choice == 2) {
-                Queue<Bill> temp = billQueue;
-
-                while (!temp.isEmpty()) {
-                    Bill bill = temp.poll();
-                    if (bill.getOwner().equalsIgnoreCase(name)) {
-                        System.out.println(bill);
-                    }
-                }
+                billQueue.display();
             } else if (choice == 3) {
                 break;
             }
@@ -182,7 +175,7 @@ public class Main {
                     scanner.nextLine();
 
                     accounts.add(new BankAccount(accNum, name, balance));
-                    regQueue.poll();
+                    regQueue.dequeue();
                     System.out.println("Account approved");
                 }
             } else if (choice == 2) {
@@ -206,16 +199,16 @@ public class Main {
                         if (owner != null && owner.getBalance() >= bill.getAmount()) {
                             owner.setBalance(owner.getBalance() - bill.getAmount());
                             bill.status = BillStatus.APPROVED;
-                            billQueue.poll();
+                            billQueue.dequeue();
                             System.out.println("Paid");
                         } else {
                             bill.status = BillStatus.REJECTED;
-                            billQueue.poll();
+                            billQueue.dequeue();
                             System.out.println("Rejected (Funds)");
                         }
                     } else {
                         bill.status = BillStatus.REJECTED;
-                        billQueue.poll();
+                        billQueue.dequeue();
                         System.out.println("Rejected");
                     }
                 }
