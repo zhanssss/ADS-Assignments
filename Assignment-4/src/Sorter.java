@@ -12,7 +12,6 @@ public class Sorter {
                 arr[j - 1] = temp;
                 j = j - 1;
             }
-
         }
         return arr;
     }

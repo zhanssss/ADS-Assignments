@@ -42,7 +42,7 @@ public class Experiment {
             long basicSortedTime = measureSortTime(sortedArray.clone(), "basic");
             long advancedSortedTime = measureSortTime(sortedArray.clone(), "advanced");
 
-            System.out.println("\nArray size: " + size);
+            System.out.println("Array size: " + size);
 
             System.out.println("Random array:");
             System.out.println("Basic Sort time: " + basicRandomTime + " ns");

@@ -2,6 +2,8 @@
 
 ## Project Overview
 
+Github Link: https://github.com/zhanssss/ADS-Assignments/tree/master/Assignment-4
+
 This project compares three algorithms:
 
 - Insertion Sort as a basic sorting algorithm
@@ -18,9 +20,7 @@ Insertion Sort builds a sorted part of the array one element at a time. It compa
 
 Time complexity:
 
-- Best case: O(n)
-- Average case: O(n²)
-- Worst case: O(n²)
+- O(n²)
 
 ### Heap Sort
 
@@ -28,9 +28,7 @@ Heap Sort uses a heap data structure. First, it builds a max heap. Then it repea
 
 Time complexity:
 
-- Best case: O(n log n)
-- Average case: O(n log n)
-- Worst case: O(n log n)
+- O(n log n)
 
 ### Binary Search
 
@@ -38,28 +36,26 @@ Binary Search works only on a sorted array. It repeatedly checks the middle elem
 
 Time complexity:
 
-- Best case: O(1)
-- Average case: O(log n)
-- Worst case: O(log n)
+- O(log n)
 
 ## Experimental Results
 
-| Size | Input Type | Insertion Sort | Heap Sort |
-|---|---|---:|---:|
-| 10 | Random | your result ns | your result ns |
-| 10 | Sorted | your result ns | your result ns |
-| 100 | Random | your result ns | your result ns |
-| 100 | Sorted | your result ns | your result ns |
-| 1000 | Random | your result ns | your result ns |
-| 1000 | Sorted | your result ns | your result ns |
+| Size | Input Type | Insertion Sort |      Heap Sort |
+|---|---|---------------:|---------------:|
+| 10 | Random |        3600 ns |        2900 ns |
+| 10 | Sorted |         400 ns |        2400 ns |
+| 100 | Random | 98600 ns | 58900 ns |
+| 100 | Sorted | 3100 ns | 63100 ns |
+| 1000 | Random | 2537700 ns | 100900 ns |
+| 1000 | Sorted | 3100 ns | 75400 ns |
 
 ## Searching Results
 
 | Size | Algorithm | Time |
 |---|---|---:|
-| 10 | Binary Search | your result ns |
-| 100 | Binary Search | your result ns |
-| 1000 | Binary Search | your result ns |
+| 10 | Binary Search | 335400 ns |
+| 100 | Binary Search | 600 ns |
+| 1000 | Binary Search | 800 ns |
 
 ## Analysis
 
@@ -75,11 +71,13 @@ Binary Search is efficient because it eliminates half of the array on every step
 
 ## Screenshots
 
-Add screenshots of program output here.
-
 Example:
-
-![Program output](docs/screenshots/output1.png)
+## Test run 1
+![Program output](docs/screenshots/1.png)
+## Test run 2
+![Program output](docs/screenshots/2.png)
+## Test run 3
+![Program output](docs/screenshots/3.png)
 
 ## Reflection
 
